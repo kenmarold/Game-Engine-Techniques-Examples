@@ -7,7 +7,7 @@ public class GET_Raycast : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -21,20 +21,25 @@ public class GET_Raycast : MonoBehaviour
         {
             if (hit.collider.CompareTag("Static"))
             {
-                // Destroy the object that collided with this object
-                // Destroy(hit.collider.gameObject);
-
-                // Show trigger feedback in Console Window
                 print("My raycast hit a STATIC object");
-            } 
+            }
             else if (hit.collider.CompareTag("Enemy"))
             {
-                // Destroy the object that collided with this object
-                // Destroy(hit.collider.gameObject);
-
-                // Show trigger feedback in Console Window
                 print("My raycast hit an ENEMY object");
             }
+
+            // New functionality: Change the hit object's color to a random color
+            Renderer hitRenderer = hit.collider.GetComponent<Renderer>();
+            if (hitRenderer != null) // Ensure the object has a Renderer component
+            {
+                hitRenderer.material.color = GetRandomColor();
+            }
         }
+    }
+
+    // Helper function to generate a random color
+    Color GetRandomColor()
+    {
+        return new Color(Random.value, Random.value, Random.value);
     }
 }
