@@ -7,7 +7,7 @@ public class GET_Raycast : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        print("Raycast script has started");
     }
 
     // Update is called once per frame
@@ -26,13 +26,13 @@ public class GET_Raycast : MonoBehaviour
             else if (hit.collider.CompareTag("Enemy"))
             {
                 print("My raycast hit an ENEMY object");
-            }
 
-            // New functionality: Change the hit object's color to a random color
-            Renderer hitRenderer = hit.collider.GetComponent<Renderer>();
-            if (hitRenderer != null) // Ensure the object has a Renderer component
-            {
+                // New functionality: Change the hit object's color to a random color
+                Renderer hitRenderer = hit.collider.GetComponent<Renderer>();
+                if (hitRenderer != null) // Ensure the object has a Renderer component
+                {
                 hitRenderer.material.color = GetRandomColor();
+                }
             }
         }
     }
