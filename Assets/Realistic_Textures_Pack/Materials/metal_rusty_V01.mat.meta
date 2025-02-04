@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 5c81e6c149131384985c7657e0a2268b
+labels:
+- Architecture
+- Audio
+- Character
+- Effect
+timeCreated: 1458900378
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 128754
+  packageName: Realistic Textures Pack 2
+  packageVersion: 1.0
+  assetPath: Assets/Realistic_Textures_Pack/Materials/metal_rusty_V01.mat
+  uploadId: 310992
