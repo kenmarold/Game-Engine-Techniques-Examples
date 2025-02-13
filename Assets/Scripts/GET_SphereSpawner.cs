@@ -14,6 +14,7 @@ public class GET_SphereSpawner : MonoBehaviour
     void Start()
     {
         SpawnSpheres();
+        AssignCollectibleTags();
     }
 
     void FixedUpdate()
@@ -27,7 +28,7 @@ public class GET_SphereSpawner : MonoBehaviour
         {
             int attempts = 0;
             bool placed = false;
-            
+
             while (!placed && attempts < 100)
             {
                 float baseSize = 1f;
@@ -38,29 +39,46 @@ public class GET_SphereSpawner : MonoBehaviour
                     Random.Range(radius, YAreaSize - radius),
                     Random.Range(-ZAreaSize / 2 + radius, ZAreaSize / 2 - radius)
                 );
-                
+
                 if (!IsOverlapping(randomPosition, radius))
                 {
                     GameObject newSphere = Instantiate(spherePrefab, randomPosition, Quaternion.identity);
                     newSphere.transform.localScale = Vector3.one * baseSize * scaleFactor;
-                    
+
                     if (sphereMaterials.Length > 0)
                     {
                         Material randomMaterial = sphereMaterials[Random.Range(0, sphereMaterials.Length)];
                         newSphere.GetComponent<Renderer>().material = randomMaterial;
                     }
-                    
+
                     Rigidbody rb = newSphere.AddComponent<Rigidbody>();
                     rb.useGravity = false;
                     rb.mass = radius;
                     rb.linearDamping = 0.5f;
                     rb.angularDamping = 0.5f;
                     rb.linearVelocity = new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f));
+
                     Sphere sphere = new Sphere(newSphere, radius, rb);
                     spheres.Add(sphere);
                     placed = true;
                 }
                 attempts++;
+            }
+        }
+    }
+
+    void AssignCollectibleTags()
+    {
+        int collectibleCount = Mathf.CeilToInt(numberOfSpheres * 0.25f); // 25% of spheres
+        List<int> chosenIndexes = new List<int>();
+
+        while (chosenIndexes.Count < collectibleCount)
+        {
+            int randomIndex = Random.Range(0, spheres.Count);
+            if (!chosenIndexes.Contains(randomIndex))
+            {
+                spheres[randomIndex].gameObject.tag = "collectible";
+                chosenIndexes.Add(randomIndex);
             }
         }
     }
@@ -96,9 +114,9 @@ public class GET_SphereSpawner : MonoBehaviour
         public GameObject gameObject;
         public float radius;
         public Rigidbody rb;
-        
+
         public Vector3 position => gameObject.transform.position;
-        
+
         public Sphere(GameObject obj, float r, Rigidbody rigidbody)
         {
             gameObject = obj;

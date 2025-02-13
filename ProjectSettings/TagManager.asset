@@ -7,6 +7,9 @@ TagManager:
   - TriggerObject
   - Enemy
   - Static
+  - collectible
+  - addPoints
+  - losePoints
   layers:
   - Default
   - TransparentFX
